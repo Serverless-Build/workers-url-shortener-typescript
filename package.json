@@ -1,0 +1,36 @@
+{
+  "name": "serverless-build-url-shortener",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "^22.18.0 || >=24.11.0" },
+  "description": "An isolated URL shortener with real analytics and full/claimable storage profiles",
+  "scripts": {
+    "dev": "wrangler dev --config wrangler.jsonc",
+    "dev:claimable": "wrangler dev --config wrangler.claimable.jsonc",
+    "build": "vite build",
+    "deploy": "wrangler deploy --config wrangler.jsonc && wrangler d1 migrations apply DB --remote --config wrangler.jsonc",
+    "deploy:claimable": "wrangler deploy --config wrangler.claimable.jsonc",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.jsonc",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote --config wrangler.jsonc",
+    "typecheck": "wrangler types --config wrangler.jsonc && wrangler types claimable-configuration.d.ts --config wrangler.claimable.jsonc --env-interface ClaimableEnv --include-runtime=false && tsc --noEmit",
+    "bundle:claimable": "wrangler deploy --config wrangler.claimable.jsonc --dry-run --outdir dist/worker"
+  },
+  "dependencies": {
+    "@cloudflare/kumo": "2.14.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "hono": "^4.11.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.6",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "tailwindcss": "^4.0.6",
+    "typescript": "^5.7.2",
+    "vite": "^7.1.7",
+    "wrangler": "^4.134.0"
+  }
+}
